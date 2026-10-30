@@ -1,0 +1,4 @@
+/dist/
+/internet-send
+*.exe
+.DS_Store

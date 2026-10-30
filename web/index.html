@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#2563eb">
+  <title>Internet Send</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%232563eb'/%3E%3Cpath d='M9 13h12l-4-4M23 19H11l4 4' stroke='white' stroke-width='2.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <span class="logo" aria-hidden="true">⇄</span>
+      <span>Internet Send</span>
+    </div>
+    <div class="status" id="status" data-state="connecting">
+      <span class="dot"></span><span id="statusText">连接中…</span>
+    </div>
+    <button id="qrBtn" class="btn ghost" type="button">扫码连接</button>
+  </header>
+
+  <main class="wrap">
+    <section class="card me">
+      <div class="me-label">本机</div>
+      <button id="myName" class="me-name" type="button" title="点击修改名称">…</button>
+      <span class="hint">点击名称可修改</span>
+    </section>
+
+    <section class="card">
+      <h2>发送给</h2>
+      <div id="targets" class="chips" role="radiogroup" aria-label="接收设备"></div>
+      <p id="alone" class="hint alone">其他设备连上同一 Wi-Fi / 热点后，扫右上角二维码或打开上方地址即可出现在这里。</p>
+    </section>
+
+    <section class="card">
+      <label id="drop" class="drop">
+        <input type="file" id="fileInput" multiple hidden>
+        <div class="drop-icon" aria-hidden="true">↑</div>
+        <div><b>点击选择文件</b><span class="desktop-only">，或拖拽到这里</span></div>
+        <div class="hint">支持多选；电脑上可直接 Ctrl+V 粘贴截图</div>
+      </label>
+      <form id="textForm" class="text-form">
+        <textarea id="textInput" rows="2" placeholder="发送文字或链接…（Ctrl+Enter 发送）"></textarea>
+        <button class="btn primary" type="submit">发送</button>
+      </form>
+    </section>
+
+    <section id="transfers" class="transfers"></section>
+
+    <section class="card">
+      <h2>记录</h2>
+      <ul id="items" class="items"></ul>
+      <p id="empty" class="empty">还没有记录</p>
+    </section>
+
+    <footer class="foot" id="foot"></footer>
+  </main>
+
+  <dialog id="qrDialog" class="dialog">
+    <h3>用手机扫码打开</h3>
+    <p class="hint">手机需要和这台设备连接同一个 Wi-Fi 或热点</p>
+    <img id="qrImg" alt="二维码" width="240" height="240">
+    <select id="qrUrl" aria-label="选择地址"></select>
+    <p id="qrText" class="mono"></p>
+    <form method="dialog"><button class="btn">关闭</button></form>
+  </dialog>
+
+  <dialog id="pinDialog" class="dialog">
+    <form id="pinForm">
+      <h3>请输入访问口令</h3>
+      <p class="hint">口令显示在运行 Internet Send 的电脑终端里</p>
+      <input id="pinInput" inputmode="numeric" autocomplete="one-time-code" placeholder="口令" required>
+      <p id="pinError" class="error"></p>
+      <button class="btn primary" type="submit">进入</button>
+    </form>
+  </dialog>
+
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
